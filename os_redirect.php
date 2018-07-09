@@ -96,7 +96,19 @@ class os_redirect extends MPFPayment
 			}
 
 			// This will final the process, set subscription status to active, trigger onMembershipActive event, sending emails to subscriber and admin...
-			$this->onPaymentSuccess($row, $transactionId);*/
+			$this->onPaymentSuccess($row, $transactionId);
+			
+			// Redirect to the registration complete page
+			$app->redirect($siteUrl . 'index.php?option=com_osmembership&view=complete&id=' . $row->id . '&Itemid=' . $Itemid);
+			*/
+		}
+		else{
+			// Store the reason of the error so that it is being displayed on payment failure page
+			$errorReason = $this->transactionStatus->error ;
+			JFactory::getSession()->set('omnipay_payment_error_reason', $errorReason);
+			// Redirect to payment failure page
+			$app->redirect($siteUrl . 'index.php?option=com_osmembership&view=failure&id=' . $row->id . '&Itemid=' . $Itemid);
+
 		}
 	}
 
