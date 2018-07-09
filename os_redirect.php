@@ -71,7 +71,12 @@ class os_redirect extends MPFPayment
 	 */
 	public function verifyPayment()
 	{
-		if ($this->validate())
+		 $row    = JTable::getInstance('OsMembership', 'Subscriber');
+	   	 $app    = JFactory::getApplication();
+		$Itemid = $app->input->getInt('Itemid', 0);
+			$siteUrl = JUri::base();
+		
+				if ($this->validate())
 		{
 			/*$id            = $this->notificationData['registrant_id_param'];
 			$transactionId = $this->notificationData['transaction_id_param'];
